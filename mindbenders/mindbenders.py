@@ -22,9 +22,15 @@ def generate_problems():
             os.path.join(data_directory, "parameters"+str(i)+".json")
         #json_parameter_file = "_data/parameters1.json"
 
+        assert os.path.exists(template_file), '%s does not exist' % \
+            template_file
+        assert os.path.exists(json_parameter_file), '%s does not exist' % \
+            json_parameter_file 
+
         # read the contents from the JSON files
         print("Read JSON parameter file...%s" % json_parameter_file)
         config_parameters = json.load(open(json_parameter_file))
+
 
         # next we need to create the central Jinja2 environment and we will load
         # the Jinja2 template file (the two parameters ensure a clean output in the
