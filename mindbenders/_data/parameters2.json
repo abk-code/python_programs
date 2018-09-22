@@ -1,0 +1,24 @@
+[
+  {
+    "turtle1": "Mike",
+    "turtle2": "Max",
+    "turtle3": "Mark",
+    "color1" : "Yellow",
+    "color2" : "Pink",
+    "color3" : "Blue",
+    "type1" : "snapping",
+    "type2" : "3-toed",
+    "type3" : "mud"
+  },
+  {
+    "turtle1": "Rob",
+    "turtle2": "Rae",
+    "turtle3": "Randolf",
+    "color1" : "Black",
+    "color2" : "Brown",
+    "color3" : "Purple",
+    "type1" :  "skinny",
+    "type2" : "medium",
+    "type3" : "fat"
+  }
+]
