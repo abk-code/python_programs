@@ -2,8 +2,8 @@ import jinja2
 import json
 import os
 
-template_file = "1_monkeys_wearing_hats.j2"
-json_parameter_file = "parameters2.json"
+template_file = "problem1.j2"
+json_parameter_file = "parameters1.json"
 output_directory = "_output"
 
 # read the contents from the JSON files
