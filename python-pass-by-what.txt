@@ -1,6 +1,6 @@
-"The basic elements of Python semantics are _objects_ and .  Objects are the data
-entities that are created and manipulated by Python programs.  Variables are just
-the names used in a program to refer to objects.
+"The basic elements of Python semantics are _objects_ and _variables_.  Objects
+are the data entities that are created and manipulated by Python programs.
+Variables are just the names used in a program to refer to objects.
 
 In Python, each object has a particular _type_, which characterizes its behavior.
 A type defines a set of operations that create and manipulate objects of that
@@ -64,5 +64,5 @@ objects (e.g. instances), but of course it cannot modify immutable ones (e.g.
 integers).  A function or method has no access to the variables of its caller.
 
 Procedure invocations may be used directly as statements; those that return
-objects may also be used as expressions.  Arbitrary recursive function or methods are
-permitted."
+objects may also be used as expressions. Arbitrary recursive function or
+methods are permitted."
