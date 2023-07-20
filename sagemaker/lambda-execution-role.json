@@ -1,0 +1,36 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SageMakerPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "sagemaker:CreateEndpoint",
+                "sagemaker:UpdateEndpoint",
+                "sagemaker:DeleteEndpoint",
+                "sagemaker:InvokeEndpoint",
+                "sagemaker:CreateModel",
+                "sagemaker:DeleteModel",
+                "sagemaker:CreateEndpointConfig",
+                "sagemaker:DeleteEndpointConfig",
+                "sagemaker:CreateTransformJob",
+                "sagemaker:CreateProcessingJob",
+                "sagemaker:Describe*",
+                "sagemaker:List*",
+                "sagemaker:Stop*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3Permissions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::YOUR_S3_BUCKET/*"
+        }
+    ]
+}
+

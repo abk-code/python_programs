@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: CloudFormation template for Amazon SageMaker domain creation
+
+Resources:
+  SageMakerDomainCustomResource:
+    Type: Custom::SageMakerDomain
+    Properties:
+      ServiceToken: ARN_OF_YOUR_LAMBDA_FUNCTION
+      # Add any input parameters you want to pass to the Lambda function
+

@@ -1,0 +1,13 @@
+Creation of the SageMaker Domain is not straight forward.
+
+Create the Lambda Function:
+Create an AWS Lambda function that uses the Boto3 library to create the SageMaker domain. The Lambda function will be responsible for the actual domain creation and handling the CloudFormation custom resource request.
+
+CloudFormation Custom Resource:
+In your CloudFormation template, define a custom resource that references the Lambda function you created in the previous step. The custom resource acts as a bridge between CloudFormation and the Lambda function.
+
+Lambda Execution Role:
+Ensure that the Lambda function has the necessary IAM permissions to create a SageMaker domain. Create an IAM role with the required permissions and attach it to the Lambda function.
+
+CloudFormation Stack:
+Deploy your CloudFormation stack, which includes the custom resource. When the stack is created, the custom resource triggers the Lambda function to create the SageMaker domain.

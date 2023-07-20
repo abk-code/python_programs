@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: CloudFormation template for Amazon SageMaker notebook instance
+
+Resources:
+  SageMakerNotebookInstance:
+    Type: AWS::SageMaker::NotebookInstance
+    Properties:
+      NotebookInstanceName: MySageMakerNotebook
+      InstanceType: ml.t2.medium
+      RoleArn: !GetAtt SageMakerNotebookRole.Arn
+      # You can add more properties here, such as SubnetId, SecurityGroupIds, etc.
+
+  SageMakerNotebookRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+
+      # Add more permissions for the SageMaker role if needed.
+      # For example, you may need permissions to access S3 buckets or other resources.
+
+Outputs:
+  SageMakerNotebookInstanceName:
+    Value: !Ref SageMakerNotebookInstance
