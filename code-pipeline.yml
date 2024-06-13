@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create an AWS CodePipeline
+
+Parameters:
+  S3BucketName:
+    Description: S3 bucket to store the CloudFormation template and artifacts
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketName
+
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      RoleArn: !GetAtt PipelineRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref S3Bucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: S3
+                Version: '1'
+              Configuration:
+                S3Bucket: !Ref S3Bucket
+                S3ObjectKey: cloudformation/ec2-template.yml
+                PollForSourceChanges: 'true'
+              OutputArtifacts:
+                - Name: SourceArtifact
+              RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: DeployAction
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: '1'
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: MyEC2Stack
+                Capabilities: CAPABILITY_NAMED_IAM
+                TemplatePath: SourceArtifact::cloudformation/ec2-template.yml
+              InputArtifacts:
+                - Name: SourceArtifact
+              RunOrder: 1
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodePipelinePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetBucketVersioning
+                  - s3:GetBucketLocation
+                  - s3:ListBucket
+                  - s3:PutObject
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateStack
+                  - cloudformation:UpdateStack
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DeleteStack
+                Resource: '*'
+
+Outputs:
+  PipelineName:
+    Description: Name of the created pipeline
+    Value: !Ref Pipeline
+
+
+
+#How to deploy the stack
+#aws cloudformation create-stack --stack-name MyPipelineStack --template-body file://pipeline-template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<YourS3BucketName>
